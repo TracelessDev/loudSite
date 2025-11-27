@@ -1,0 +1,630 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LOUD STUDIO | DIGITAL PRODUCTION</title>
+    
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* PALETTE */
+            --bg: #FAFAFA;
+            --ink: #050505;
+            --paper: #FFFFFF;
+            
+            /* HIGHLIGHTERS */
+            --acid-lime: #D4FF00;
+            --shock-pink: #FF00FF;
+            --cyan-punch: #00FFFF;
+            --alert-orange: #FF5500;
+            
+            /* STRUCTURAL */
+            --border-thick: 3px solid var(--ink);
+            --border-thin: 2px solid var(--ink);
+            
+            /* SHADOWS */
+            --shadow-dist: 8px;
+            --hard-shadow: var(--shadow-dist) var(--shadow-dist) 0px var(--ink);
+            --hard-shadow-hover: 12px 12px 0px var(--ink);
+            
+            /* TYPE */
+            --font-display: 'Unbounded', sans-serif;
+            --font-body: 'Manrope', sans-serif;
+            
+            /* MOTION */
+            --snap: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* RESET & BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        ::selection { background: var(--ink); color: var(--acid-lime); }
+
+        html, body { width: 100%; overflow-x: hidden; }
+
+        body {
+            background-color: var(--bg);
+            color: var(--ink);
+            font-family: var(--font-body);
+            font-size: 18px;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        body::before {
+            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 9999; mix-blend-mode: multiply;
+        }
+
+        /* --- UTILITIES --- */
+        .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2; }
+        .section-gap { margin-bottom: 180px; position: relative; }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3, h4 {
+            font-family: var(--font-display); text-transform: uppercase;
+            font-weight: 900; line-height: 1.0; color: var(--ink);
+        }
+
+        .mega-title {
+            font-size: clamp(40px, 13vw, 180px); letter-spacing: -0.02em;
+            word-spacing: 10px; text-align: left; margin-bottom: 30px;
+            position: relative; z-index: 2;
+        }
+        
+        .section-title {
+            font-size: clamp(32px, 6vw, 80px); background: var(--ink); color: var(--bg);
+            display: inline-block; padding: 15px 30px; transform: rotate(-2deg);
+            margin-bottom: 60px; border: 2px solid var(--ink); position: relative; z-index: 2;
+        }
+
+        p { font-weight: 500; color: #333; max-width: 60ch; }
+        
+        .badge {
+            font-family: var(--font-display); font-size: 11px; font-weight: 800;
+            text-transform: uppercase; border: 2px solid var(--ink); padding: 6px 14px;
+            border-radius: 50px; background: var(--paper); display: inline-block;
+            margin-bottom: 16px; letter-spacing: 0.05em;
+        }
+
+        .icon-svg {
+            width: 56px; height: 56px; display: block; margin-bottom: 24px;
+            fill: none; stroke: var(--ink); stroke-width: 2;
+            stroke-linecap: square; stroke-linejoin: miter;
+        }
+
+        /* --- COMPONENTS --- */
+        .btn-industrial {
+            position: relative; display: inline-flex; align-items: center; justify-content: center;
+            font-family: var(--font-display); font-weight: 800; font-size: clamp(16px, 1.5vw, 20px);
+            text-transform: uppercase; text-decoration: none; color: var(--ink);
+            background: var(--acid-lime); border: var(--border-thick); padding: 24px 48px;
+            border-radius: 100px; box-shadow: var(--hard-shadow); transform: translate3d(0,0,0);
+            transition: all 0.1s linear; cursor: pointer; overflow: hidden; z-index: 5; letter-spacing: 0.05em;
+        }
+        .btn-industrial:hover { transform: translate(var(--shadow-dist), var(--shadow-dist)); box-shadow: 0px 0px 0px var(--ink); }
+        .btn-industrial::after { content: "→"; margin-left: 10px; transition: transform 0.2s; }
+        .btn-industrial:hover::after { transform: translateX(5px); }
+
+        .brutal-card {
+            background: var(--paper); border: var(--border-thick); padding: 40px;
+            position: relative; box-shadow: var(--hard-shadow);
+            transition: transform 0.3s var(--snap), box-shadow 0.3s var(--snap);
+            display: flex; flex-direction: column; justify-content: space-between; z-index: 2;
+        }
+        .brutal-card:hover { transform: translate(-4px, -4px) !important; box-shadow: var(--hard-shadow-hover); }
+        .brutal-card.mobile-active { transform: translate(var(--shadow-dist), var(--shadow-dist)) !important; box-shadow: 0px 0px 0px var(--ink) !important; }
+        .brutal-card::before { content: "+"; position: absolute; top: 10px; right: 15px; font-family: var(--font-display); font-weight: 800; font-size: 24px; }
+
+        .card-lime { background-color: var(--acid-lime) !important; }
+        .card-pink { background-color: var(--shock-pink) !important; }
+        .card-cyan { background-color: var(--cyan-punch) !important; }
+        .card-white { background-color: var(--paper) !important; }
+
+        .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 30px; position: relative; }
+        .span-4 { grid-column: span 4; } .span-6 { grid-column: span 6; } .span-8 { grid-column: span 8; } .span-12 { grid-column: span 12; }
+
+        /* --- SECTIONS --- */
+        nav {
+            display: flex; justify-content: center; align-items: center; padding: 20px 0;
+            border-bottom: var(--border-thick); margin-bottom: 30px; background: var(--bg); position: relative; z-index: 10;
+        }
+        .logo-img { height: 50px; width: auto; object-fit: contain; display: block; }
+
+        .marquee-strip {
+            background: var(--ink); color: #FFFFFF; border-top: var(--border-thick); border-bottom: var(--border-thick);
+            padding: 15px 0; overflow: hidden; white-space: nowrap; transform: rotate(-1deg) scale(1.02);
+            margin: 60px 0; z-index: 10; position: relative;
+        }
+        .marquee-content {
+            display: inline-block; animation: scroll-left 20s linear infinite;
+            font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: 22px; letter-spacing: 0.05em;
+        }
+        @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        .hero-section { padding-top: 10px; text-align: left; position: relative; }
+        .hero-tags { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;}
+        
+        .hero-desc {
+            font-size: clamp(18px, 1.5vw, 24px); line-height: 1.4; background: var(--paper); border: var(--border-thick);
+            padding: 24px 30px; box-shadow: var(--hard-shadow); max-width: 700px; margin-bottom: 40px; transform: rotate(1deg); position: relative; z-index: 2;
+        }
+
+        /* --- WORKFLOW LIST --- */
+        .workflow-item { display: flex; align-items: flex-start; margin-bottom: 30px; }
+        .wf-num { font-family: var(--font-display); font-size: 40px; font-weight: 900; color: var(--ink); margin-right: 20px; line-height: 1; }
+        .wf-content h4 { font-size: 20px; margin-bottom: 5px; color: var(--ink); }
+        .wf-content p { font-size: 16px; color: #555; }
+
+        /* --- PORTFOLIO IMAGE HOLDER (FIXED) --- */
+        .project-img {
+            width: 100%; aspect-ratio: 16/9; border: var(--border-thick); margin-bottom: 20px;
+            position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
+        }
+        .logo-frame {
+            width: calc(100% - 20px); height: calc(100% - 20px);
+            background: var(--paper); border: var(--border-thin);
+            display: flex; align-items: center; justify-content: center;
+        }
+        .project-img img {
+            max-width: 60%; max-height: 50%; object-fit: contain; transition: transform 0.3s;
+        }
+        .brutal-card:hover .project-img img { transform: scale(1.1); }
+        .brutal-card.mobile-active .project-img img { transform: scale(1.1); }
+
+        /* --- PRICE STICKER --- */
+        .price-wrapper { display: flex; justify-content: center; align-items: center; padding: 60px 0; position: relative; z-index: 5; }
+        .sticker-giant {
+            background: var(--acid-lime); border: 4px solid var(--ink); border-radius: 70px;
+            padding: 100px 60px 80px 60px; text-align: center; transform: rotate(-3deg); box-shadow: 15px 15px 0px var(--ink);
+            transition: all 0.28s cubic-bezier(0.25, 1, 0.5, 1); position: relative; cursor: pointer;
+            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; color: var(--ink);
+        }
+        .sticker-giant:hover {
+            transform: scale(1.02) rotate(0deg); box-shadow: 20px 20px 0px var(--ink);
+            background: var(--alert-orange); color: var(--paper);
+        }
+        .sticker-hole {
+            width: 25px; height: 25px; background: var(--bg); border: 3px solid var(--ink); border-radius: 50%;
+            position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 2;
+        }
+        .price-val {
+            font-family: var(--font-display); font-weight: 900; font-size: clamp(40px, 5vw, 90px); line-height: 1.1; letter-spacing: -0.03em; text-transform: uppercase;
+        }
+        .price-sub {
+            font-family: var(--font-display); font-size: clamp(14px, 1.5vw, 20px); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; max-width: 25ch; line-height: 1.4;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--ink); color: var(--paper); padding: 80px 20px; text-align: center; border-top: 10px solid var(--acid-lime); position: relative; z-index: 5;
+        }
+        .footer-logo { width: 300px; max-width: 80%; height: auto; opacity: 0.2; margin-bottom: 30px; filter: grayscale(100%); }
+        .legal-links { display: flex; justify-content: center; gap: 20px; margin-top: 30px; flex-wrap: wrap; }
+        .legal-link { color: #666; font-size: 14px; text-decoration: none; border-bottom: 1px solid #666; transition: 0.3s; cursor: pointer; }
+        .legal-link:hover { color: var(--acid-lime); border-color: var(--acid-lime); }
+
+        .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s var(--snap); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .geo-shape { position: absolute; z-index: 0; pointer-events: none; }
+        .shape-pill { width: 180px; height: 70px; border-radius: 100px; background: var(--acid-lime); }
+        .shape-tri-wrapper { width: 150px; height: 150px; background: transparent; border: none; }
+        .shape-tri-wrapper svg { width: 100%; height: 100%; fill: var(--shock-pink); stroke: var(--ink); stroke-width: 4px; overflow: visible; }
+
+        /* --- MODAL --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.95);
+            z-index: 9999; display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(5px);
+        }
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        
+        .modal-content {
+            background: var(--paper); border: var(--border-thick); padding: 40px;
+            width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto;
+            position: relative; transform: translateY(50px) rotate(-2deg);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 15px 15px 0px var(--ink);
+        }
+        .modal-overlay.active .modal-content { transform: translateY(0) rotate(0deg); }
+        
+        .close-modal {
+            position: absolute; top: 15px; right: 20px; background: none; border: none;
+            font-family: var(--font-display); font-size: 30px; font-weight: 900; cursor: pointer; color: var(--ink);
+        }
+        .close-modal:hover { color: var(--alert-orange); }
+
+        .form-group { margin-bottom: 25px; }
+        .form-label { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: 14px; margin-bottom: 10px; display: block; }
+        .brutal-input {
+            width: 100%; background: var(--bg); border: 3px solid var(--ink); padding: 15px;
+            font-family: var(--font-body); font-weight: 700; font-size: 16px; color: var(--ink);
+            border-radius: 0; transition: 0.2s;
+        }
+        .brutal-input:focus { outline: none; background: var(--paper); box-shadow: 6px 6px 0px var(--acid-lime); transform: translate(-3px, -3px); }
+
+        .form-submit-btn {
+            width: 100%; font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: 20px;
+            background: var(--acid-lime); color: var(--ink); border: 3px solid var(--ink); padding: 20px;
+            cursor: pointer; box-shadow: 6px 6px 0px var(--ink); transition: 0.2s;
+        }
+        .form-submit-btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--ink); background: var(--alert-orange); color: var(--paper); }
+        .form-submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .legal-text { font-size: 14px; line-height: 1.6; color: #333; }
+        .legal-text h3 { margin-top: 20px; margin-bottom: 10px; font-size: 18px; }
+        .legal-text ul { padding-left: 20px; margin-bottom: 10px; }
+
+        @media (max-width: 900px) {
+            html, body { overflow-x: hidden; position: relative; }
+            .container { padding: 0 20px; width: 100%; }
+            .logo-img { height: 35px; }
+
+            .hero-section { text-align: center; padding-top: 20px; }
+            .hero-tags { justify-content: center; margin-bottom: 30px; }
+            .mega-title { font-size: 13vw; text-align: center; word-spacing: normal; line-height: 1.1; margin-bottom: 40px; }
+            .hero-desc { text-align: left; transform: rotate(0deg); width: 100%; margin: 0 auto 40px auto; }
+            .btn-industrial { width: 100%; max-width: 400px; }
+
+            .bento-grid { grid-template-columns: 1fr; gap: 40px; }
+            .span-4, .span-6, .span-8 { grid-column: span 1; width: 100%; }
+            .brutal-card[style*="top: 80px"] { top: 0 !important; }
+
+            .section-title { transform: rotate(-1deg); font-size: 32px; padding: 10px 20px; margin-bottom: 40px; max-width: 100%; }
+            .geo-shape { opacity: 0.5; transform: scale(0.6); }
+            .footer-logo { width: 200px; }
+
+            .marquee-strip { transform: rotate(-2deg) scale(1.05); width: 110%; margin-left: -5%; margin-top: 80px; margin-bottom: 80px; }
+
+            footer h2 { font-size: 28px; line-height: 2.0 !important; margin-bottom: 40px !important; }
+            footer span { display: inline-block; margin-top: 5px; }
+
+            /* MOBILE COMPACT PRICE STICKER */
+            .sticker-giant {
+                animation: none; transition: all 0.4s ease;
+                padding: 40px 20px 30px 20px !important; border-radius: 40px;
+            }
+            .price-val { font-size: 32px !important; } 
+            .price-sub { font-size: 12px !important; }
+            .sticker-hole { top: 10px !important; width: 15px !important; height: 15px !important; } 
+            
+            .sticker-giant.mobile-active {
+                animation: none; transition: all 0.4s ease; background: var(--alert-orange); color: var(--paper);
+                transform: rotate(3deg) scale(1.05); box-shadow: 15px 15px 0px var(--ink); 
+                padding: 40px 20px 30px 20px !important;
+            }
+            
+            .modal-content { max-width: 90%; padding: 30px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav><img src="fullLogo.png" alt="LOUD STUDIO" class="logo-img"></nav>
+
+        <header class="hero-section section-gap">
+            <div class="hero-tags reveal">
+                <span class="badge">/// FULL STACK</span>
+                <span class="badge" style="background:var(--shock-pink)">/// REACT / PYTHON</span>
+                <span class="badge" style="background:var(--cyan-punch)">/// СРОКИ: ОТ 5 ДНЕЙ</span>
+            </div>
+            <h1 class="mega-title reveal">ЛЮБАЯ<br>ЗАДАЧА.<br><span style="color: var(--alert-orange)">БЕЗ ВОДЫ.</span></h1>
+            <div class="hero-desc reveal">
+                <p><strong>МЫ ДЕЛАЕМ ВЕБ, КОТОРЫЙ РАБОТАЕТ.</strong></p>
+                <p style="margin-top: 10px;">Простые лендинги, интернет-магазины или сложные парсеры данных. Делаем быстро, четко и без лишней бюрократии.</p>
+            </div>
+            <div class="reveal" style="text-align: center;">
+                <button class="btn-industrial open-modal-btn">ЗАМУТИТЬ ПРОЕКТ</button>
+            </div>
+        </header>
+    </div>
+
+    <div class="marquee-strip">
+        <div class="marquee-content">
+            /// ОТКРЫТ К ЗАКАЗАМ /// ЧИСТЫЙ КОД /// ПАРСИНГ /// АРХИТЕКТУРА /// БЕЗ ПОСРЕДНИКОВ /// ОТКРЫТ К ЗАКАЗАМ /// ЧИСТЫЙ КОД /// ПАРСИНГ /// АРХИТЕКТУРА /// БЕЗ ПОСРЕДНИКОВ
+        </div>
+    </div>
+
+    <div class="container">
+        <section class="section-gap" style="position: relative;">
+            <div class="geo-shape shape-tri-wrapper" style="top: 50%; left: -60px; transform: translateY(-50%) rotate(-10deg);">
+                <svg viewBox="0 0 100 100"><polygon points="50,5 95,95 5,95" /></svg>
+            </div>
+            <h2 class="section-title reveal">НАВЫКИ</h2>
+            <div class="bento-grid">
+                <div class="brutal-card span-4 card-white reveal">
+                    <span class="badge">01. ВИЗУАЛ</span>
+                    <div>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                        <h3>НЕ БЕСЯЧИЙ ДИЗАЙН</h3>
+                        <p style="margin-top: 15px; font-size: 16px;">Делаем так, чтобы клиенту было понятно куда жать. Удобно, красиво и с логикой.</p>
+                    </div>
+                </div>
+                <div class="brutal-card span-4 card-lime reveal">
+                    <span class="badge" style="background:var(--paper)">02. ЯДРО</span>
+                    <div>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                        <h3>МОЩНЫЙ КОД</h3>
+                        <p style="margin-top: 15px; font-size: 16px;">Внутри всё летает. Никаких лагов. Сложные системы или простой сайт — вывезем всё.</p>
+                    </div>
+                </div>
+                <div class="brutal-card span-4 card-pink reveal">
+                    <span class="badge" style="background:var(--paper)">03. СТАРТ</span>
+                    <div>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                        <h3>ЗАПУСК ПОД КЛЮЧ</h3>
+                        <p style="margin-top: 15px; font-size: 16px;">Сами всё настроим, сервер поднимем. Тебе останется только скинуть ссылку клиентам.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROCESS SECTION -->
+        <section class="section-gap reveal">
+            <h2 class="section-title" style="background: var(--paper); color: var(--ink); transform: rotate(1deg);">ПРОЦЕСС</h2>
+            <div class="brutal-card" style="background: var(--paper); color: var(--ink);">
+                <div style="display: flex; flex-direction: column; gap: 30px;">
+                    <div>
+                        <h3 style="color: var(--ink); margin-bottom: 20px; font-size: 32px;">FULL STACK UNIT</h3>
+                        <p style="color: #333; max-width: 700px; font-size: 18px;">
+                            МЫ — СИСТЕМА. Не просто кодеры. Мы закрываем 100% вопросов: Дизайн, Фронт, Бек, Сервера, Домены.
+                            Тебе не нужно искать 5 разных людей. Один контакт — одно решение.<br><br>
+                            *Но если у тебя уже есть дизайнер или админ — мы без проблем встроимся в команду и закроем только свою часть.
+                        </p>
+                    </div>
+                    <div style="border-top: 2px solid var(--ink); padding-top: 30px;">
+                        <div class="workflow-item">
+                            <span class="wf-num">01.</span>
+                            <div class="wf-content">
+                                <h4 style="color: var(--ink);">КОНЦЕПТ</h4>
+                                <p style="color: #555;">Обсуждаем задачу. Мы делаем набросок первого экрана. Это бесплатно.</p>
+                            </div>
+                        </div>
+                        <div class="workflow-item">
+                            <span class="wf-num">02.</span>
+                            <div class="wf-content">
+                                <h4 style="color: var(--ink);">СТАРТ</h4>
+                                <p style="color: #555;">Понравилось? Кидаешь 50% предоплаты. Мы бронируем время и начинаем кодить.</p>
+                            </div>
+                        </div>
+                        <div class="workflow-item">
+                            <span class="wf-num">03.</span>
+                            <div class="wf-content">
+                                <h4 style="color: var(--ink);">ФИНАЛ</h4>
+                                <p style="color: #555;">Показываем результат на нашем сервере. Ты доплачиваешь остаток — мы отдаем сайт.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section-gap" style="position: relative;">
+             <div class="geo-shape shape-pill" style="top: 20px; right: 0; transform: rotate(5deg);"></div>
+            <h2 class="section-title reveal" style="transform: rotate(-2deg); background: var(--alert-orange);">ФОРМАТЫ</h2>
+            <div class="bento-grid">
+                <div class="brutal-card span-6 reveal" style="min-height: 300px;">
+                    <div>
+                        <h3>ЛЕНДИНГИ<br>ПРОМО</h3>
+                        <div style="width: 50px; height: 5px; background: var(--ink); margin: 20px 0;"></div>
+                    </div>
+                    <p>Чтобы быстро проверить идею или налить трафик. Делаем сочно, от 5 дней.</p>
+                </div>
+                <div class="brutal-card span-6 reveal" style="min-height: 300px; transform: rotate(1deg);">
+                    <div>
+                        <h3>СЛОЖНЫЕ<br>СИСТЕМЫ</h3>
+                        <div style="width: 50px; height: 5px; background: var(--ink); margin: 20px 0;"></div>
+                    </div>
+                    <p>Личные кабинеты, CRM, парсеры и data-майнинг. То, на чем ломаются новички.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO -->
+        <section class="section-gap" style="position: relative;">
+            <h2 class="section-title reveal">ДИАПАЗОН</h2>
+            <div class="bento-grid">
+                <a href="https://avtopolivsochi.ru" target="_blank" class="brutal-card span-6 reveal" style="text-decoration: none; color: inherit;">
+                    <div class="project-img" style="background-color: #1E9E6A;">
+                        <div class="logo-frame">
+                            <img src="avtopoliv-logo.png" alt="Логотип Автополив Сочи">
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <span class="badge">LANDING</span><span class="badge">КОММЕРЦИЯ</span>
+                        </div>
+                        <h3>АВТОПОЛИВ СОЧИ</h3>
+                        <p style="font-size: 14px; margin-top: 10px; color: #555;">
+                            Чистый коммерческий лендинг для реального бизнеса. Задача: быстро и понятно донести суть услуги, собрать контакты. Без колхоза и мишуры.
+                        </p>
+                        <div style="margin-top: 20px; font-weight: 800; font-size: 14px; text-transform: uppercase; color: var(--alert-orange);">
+                            ПОСМОТРЕТЬ
+                        </div>
+                    </div>
+                </a>
+                <a href="https://traceless.vercel.app" target="_blank" class="brutal-card span-6 reveal" style="position: relative; top: 80px; text-decoration: none; color: inherit;">
+                    <div class="project-img" style="background-color: #1D2A3F;">
+                        <div class="logo-frame">
+                             <img src="traceless-logo.png" alt="Логотип Traceless">
+                        </div>
+                    </div>
+                    <div>
+                        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
+                            <span class="badge">WEB3</span><span class="badge">UI/UX</span>
+                        </div>
+                        <h3>TRACELESS (PROMO)</h3>
+                        <p style="font-size: 14px; margin-top: 10px; color: #555;">
+                           Промо-сайт для Web3 стартапа. Задача: создать футуристичный образ, показать сложность продукта через визуал и анимации. Упор на UI/UX и вау-эффект.
+                        </p>
+                        <div style="margin-top: 20px; font-weight: 800; font-size: 14px; text-transform: uppercase; color: var(--alert-orange);">
+                            ПОСМОТРЕТЬ
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </section>
+
+        <!-- PRICE STICKER -->
+        <section class="section-gap reveal">
+            <div class="price-wrapper">
+                <div class="sticker-giant">
+                    <div class="sticker-hole"></div>
+                    <div class="price-val">ОТ 29.000 ₽</div>
+                    <div class="price-sub">MVP START / ГИБКАЯ СХЕМА</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER CTA -->
+        <section class="section-gap" style="text-align: center;">
+            <h2 style="font-size: clamp(30px, 5vw, 60px); margin-bottom: 30px;">
+                СНАЧАЛА <span style="background: var(--ink); color: var(--paper); padding: 0 10px;">ДЕЛО</span>
+            </h2>
+            <p style="margin: 0 auto 50px auto; font-size: 20px;">
+                Покажем набросок — <b>БЕСПЛАТНО</b>.<br>
+                Зацепит — работаем. Нет — разошлись без обид.
+            </p>
+            <button class="btn-industrial open-modal-btn" style="background: var(--cyan-punch);">ЗАМУТИТЬ ПРОЕКТ</button>
+        </section>
+    </div>
+
+    <footer>
+        <img src="fullLogo.png" alt="LOUD STUDIO" class="footer-logo">
+        <div style="margin-top: 20px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;">
+            DIGITAL PRODUCTION © 2025
+        </div>
+        <div class="legal-links">
+            <span class="legal-link" data-modal="policy">Политика конфиденциальности</span>
+            <span class="legal-link" data-modal="terms">Условия (Оферта)</span>
+        </div>
+    </footer>
+
+    <!-- MODALS -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">×</button>
+            <h2 style="font-size: 32px; margin-bottom: 20px;">ОПИШИ ЗАДАЧУ</h2>
+            <form id="projectForm">
+                <div class="form-group">
+                    <label class="form-label">ЧЁ НАДО СДЕЛАТЬ?</label>
+                    <textarea class="brutal-input" name="description" rows="3" placeholder="Сайт, бот, система или захват мира..." required></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">КУДА ЗВОНИТЬ?</label>
+                    <input type="text" class="brutal-input" name="contact" placeholder="ТГ @username или цифры" required>
+                </div>
+                <button type="submit" class="form-submit-btn">ОТПРАВИТЬ</button>
+                <div style="margin-top: 10px; font-size: 12px; color: #666; text-align: center;">Нажимая кнопку, вы соглашаетесь с Политикой конфиденциальности.</div>
+            </form>
+        </div>
+    </div>
+    <div class="modal-overlay" id="policyModal">
+        <div class="modal-content">
+            <button class="close-modal close-legal">×</button>
+            <h2>ПОЛИТИКА</h2>
+            <div class="legal-text">
+                <p>Коротко и по делу. Мы уважаем твои данные.</p>
+                <h3>1. Что собираем?</h3><p>Только то, что ты сам пишешь в форму: контакт и описание задачи. IP адреса и технические логи нужны только для безопасности сайта.</p>
+                <h3>2. Зачем?</h3><p>Чтобы связаться и обсудить проект. Мы не продаем базы, не шлем спам и не подписываем на смс-рассылки.</p>
+                <h3>3. Защита</h3><p>Данные летят через защищенный канал (HTTPS) прямо в Telegram. Доступ только у нас.</p>
+            </div>
+        </div>
+    </div>
+    <div class="modal-overlay" id="termsModal">
+        <div class="modal-content">
+            <button class="close-modal close-legal">×</button>
+            <h2>ОФЕРТА (УСЛОВИЯ)</h2>
+            <div class="legal-text">
+                <p>Мы работаем честно. Вот правила игры, чтобы не было недопониманий.</p>
+                <h3>1. Деньги</h3><p>Работа начинается только после предоплаты 50%. Вторая часть — после демонстрации готового проекта, но ДО передачи исходников/доступов.</p>
+                <h3>2. Невозврат</h3><p>Предоплата бронирует наше время. Если работа уже началась, а вы передумали — предоплата не возвращается (компенсация потраченного времени).</p>
+                <h3>3. Правки</h3><p>В стоимость входят разумные правки по ТЗ. Если мы договорились на интернет-магазин, а в процессе вы захотели соцсеть — это новый проект за новые деньги.</p>
+                <h3>4. Ответственность</h3><p>Мы делаем техническую часть. Мы не отвечаем за ваши продажи, контент и то, законен ли ваш бизнес.</p>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 1. REVEAL
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // 2. SCROLL TRIGGERS
+        if (window.innerWidth < 900) {
+            const mobileHoverObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('mobile-active');
+                    else entry.target.classList.remove('mobile-active');
+                });
+            }, { rootMargin: "-40% 0px -40% 0px", threshold: 0 });
+            const targets = document.querySelectorAll('.brutal-card, .sticker-giant');
+            targets.forEach(el => mobileHoverObserver.observe(el));
+        }
+
+        // 3. MAIN MODAL
+        const modal = document.getElementById('modal');
+        const openBtns = document.querySelectorAll('.open-modal-btn');
+        const closeBtn = document.getElementById('closeModal');
+        const form = document.getElementById('projectForm');
+        const submitBtn = form.querySelector('.form-submit-btn');
+
+        openBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => { e.preventDefault(); modal.classList.add('active'); });
+        });
+        closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+        
+        // 4. LEGAL MODALS
+        const legalLinks = document.querySelectorAll('[data-modal]');
+        const closeLegalBtns = document.querySelectorAll('.close-legal');
+        
+        legalLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                const targetId = link.getAttribute('data-modal') + 'Modal';
+                document.getElementById(targetId).classList.add('active');
+            });
+        });
+        closeLegalBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.closest('.modal-overlay').classList.remove('active');
+            });
+        });
+
+        // GLOBAL CLOSE ON CLICK OUTSIDE
+        document.querySelectorAll('.modal-overlay').forEach(overlay => {
+            overlay.addEventListener('click', (e) => {
+                if(e.target === overlay) overlay.classList.remove('active');
+            });
+        });
+
+        // 5. SUBMIT FORM
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            submitBtn.textContent = "ОТПРАВЛЯЮ..."; submitBtn.disabled = true; submitBtn.style.background = "#FFD700";
+            const formData = { description: form.description.value, contact: form.contact.value };
+            try {
+                const response = await fetch('/api/submit', {
+                    method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(formData)
+                });
+                if (response.ok) {
+                    submitBtn.textContent = "ЗАЯВКА УЛЕТЕЛА! 🔥"; submitBtn.style.background = "var(--acid-lime)";
+                    setTimeout(() => { modal.classList.remove('active'); form.reset(); submitBtn.textContent = "ОТПРАВИТЬ"; submitBtn.disabled = false; }, 2000);
+                } else throw new Error('Server error');
+            } catch (error) {
+                console.error(error); submitBtn.textContent = "ОШИБКА :( ПИШИ В ТГ"; submitBtn.style.background = "var(--alert-orange)";
+                setTimeout(() => { submitBtn.textContent = "ОТПРАВИТЬ"; submitBtn.disabled = false; submitBtn.style.background = "var(--acid-lime)"; }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
