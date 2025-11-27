@@ -1,0 +1,733 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LOUD STUDIO | ARCHITECT</title>
+    
+    <!-- FONTS -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            /* PALETTE */
+            --bg: #FAFAFA;
+            --ink: #050505;
+            --paper: #FFFFFF;
+            
+            /* HIGHLIGHTERS */
+            --acid-lime: #D4FF00;
+            --shock-pink: #FF00FF;
+            --cyan-punch: #00FFFF;
+            --alert-orange: #FF5500;
+            
+            /* STRUCTURAL */
+            --border-thick: 3px solid var(--ink);
+            --border-thin: 2px solid var(--ink);
+            
+            /* SHADOWS */
+            --shadow-dist: 8px;
+            --hard-shadow: var(--shadow-dist) var(--shadow-dist) 0px var(--ink);
+            --hard-shadow-hover: 12px 12px 0px var(--ink);
+            
+            /* TYPE */
+            --font-display: 'Unbounded', sans-serif;
+            --font-body: 'Manrope', sans-serif;
+            
+            /* MOTION */
+            --snap: cubic-bezier(0.25, 1, 0.5, 1);
+        }
+
+        /* RESET & BASE */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        ::selection { background: var(--ink); color: var(--acid-lime); }
+
+        html, body {
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--ink);
+            font-family: var(--font-body);
+            font-size: 18px;
+            line-height: 1.5;
+            position: relative;
+        }
+
+        /* NOISE GRAIN */
+        body::before {
+            content: "";
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
+            pointer-events: none; z-index: 9999;
+            mix-blend-mode: multiply;
+        }
+
+        /* --- UTILITIES --- */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .section-gap { margin-bottom: 180px; position: relative; }
+
+        /* --- TYPOGRAPHY --- */
+        h1, h2, h3 {
+            font-family: var(--font-display);
+            text-transform: uppercase;
+            font-weight: 900;
+            line-height: 1.0;
+            color: var(--ink);
+        }
+
+        .mega-title {
+            font-size: clamp(40px, 13vw, 180px);
+            letter-spacing: -0.02em;
+            word-spacing: 10px;
+            text-align: left;
+            margin-bottom: 30px;
+            position: relative;
+            z-index: 2;
+        }
+        
+        .section-title {
+            font-size: clamp(32px, 6vw, 80px);
+            background: var(--ink);
+            color: var(--bg);
+            display: inline-block;
+            padding: 15px 30px;
+            transform: rotate(-2deg);
+            margin-bottom: 60px;
+            border: 2px solid var(--ink);
+            position: relative;
+            z-index: 2;
+        }
+
+        p { font-weight: 500; color: #333; max-width: 60ch; }
+        
+        .badge {
+            font-family: var(--font-display);
+            font-size: 11px;
+            font-weight: 800;
+            text-transform: uppercase;
+            border: 2px solid var(--ink);
+            padding: 6px 14px;
+            border-radius: 50px;
+            background: var(--paper);
+            display: inline-block;
+            margin-bottom: 16px;
+            letter-spacing: 0.05em;
+        }
+
+        /* --- ICONS (SVG) --- */
+        .icon-svg {
+            width: 56px; height: 56px;
+            display: block; margin-bottom: 24px;
+            fill: none;
+            stroke: var(--ink);
+            stroke-width: 2;
+            stroke-linecap: square;
+            stroke-linejoin: miter;
+        }
+
+        /* --- COMPONENT: BUTTONS --- */
+        .btn-industrial {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-weight: 800;
+            font-size: clamp(16px, 1.5vw, 20px);
+            text-transform: uppercase;
+            text-decoration: none;
+            color: var(--ink);
+            background: var(--acid-lime);
+            border: var(--border-thick);
+            padding: 24px 48px;
+            border-radius: 100px;
+            box-shadow: var(--hard-shadow);
+            transform: translate3d(0,0,0);
+            transition: all 0.1s linear;
+            cursor: pointer;
+            overflow: hidden;
+            z-index: 5;
+            letter-spacing: 0.05em;
+        }
+
+        .btn-industrial:hover {
+            transform: translate(var(--shadow-dist), var(--shadow-dist));
+            box-shadow: 0px 0px 0px var(--ink);
+        }
+        
+        .btn-industrial::after {
+            content: "→";
+            margin-left: 10px;
+            transition: transform 0.2s;
+        }
+        .btn-industrial:hover::after { transform: translateX(5px); }
+
+        /* --- COMPONENT: CARDS --- */
+        .brutal-card {
+            background: var(--paper);
+            border: var(--border-thick);
+            padding: 40px;
+            position: relative;
+            box-shadow: var(--hard-shadow);
+            transition: transform 0.3s var(--snap), box-shadow 0.3s var(--snap);
+            display: flex; flex-direction: column; justify-content: space-between;
+            z-index: 2;
+        }
+
+        .brutal-card:hover {
+            transform: translate(-4px, -4px) !important;
+            box-shadow: var(--hard-shadow-hover);
+        }
+        
+        .brutal-card.mobile-active {
+            transform: translate(var(--shadow-dist), var(--shadow-dist)) !important;
+            box-shadow: 0px 0px 0px var(--ink) !important;
+        }
+
+        .brutal-card::before {
+            content: "+"; position: absolute; top: 10px; right: 15px; 
+            font-family: var(--font-display); font-weight: 800; font-size: 24px;
+        }
+
+        .card-lime { background-color: var(--acid-lime) !important; }
+        .card-pink { background-color: var(--shock-pink) !important; }
+        .card-cyan { background-color: var(--cyan-punch) !important; }
+        .card-white { background-color: var(--paper) !important; }
+
+        .bento-grid {
+            display: grid;
+            grid-template-columns: repeat(12, 1fr);
+            gap: 30px;
+            position: relative;
+        }
+
+        .span-4 { grid-column: span 4; }
+        .span-6 { grid-column: span 6; }
+        .span-8 { grid-column: span 8; }
+        .span-12 { grid-column: span 12; }
+
+        /* --- SECTIONS --- */
+        nav {
+            display: flex; justify-content: center; align-items: center;
+            padding: 20px 0; border-bottom: var(--border-thick);
+            margin-bottom: 30px; background: var(--bg);
+            position: relative; z-index: 10;
+        }
+
+        .logo-img { height: 50px; width: auto; object-fit: contain; display: block; }
+
+        .marquee-strip {
+            background: var(--ink); color: #FFFFFF;
+            border-top: var(--border-thick); border-bottom: var(--border-thick);
+            padding: 15px 0; overflow: hidden; white-space: nowrap;
+            transform: rotate(-1deg) scale(1.02);
+            margin: 60px 0;
+            z-index: 10; position: relative;
+        }
+        .marquee-content {
+            display: inline-block;
+            animation: scroll-left 20s linear infinite;
+            font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: 22px;
+            letter-spacing: 0.05em;
+        }
+        @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        .hero-section { padding-top: 10px; text-align: left; position: relative; }
+        .hero-tags { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;}
+        
+        .hero-desc {
+            font-size: clamp(18px, 1.5vw, 24px); line-height: 1.4;
+            background: var(--paper); border: var(--border-thick);
+            padding: 24px 30px; box-shadow: var(--hard-shadow);
+            max-width: 700px; margin-bottom: 40px; transform: rotate(1deg);
+            position: relative; z-index: 2;
+        }
+
+        .project-img {
+            width: 100%; aspect-ratio: 16/9; background: #000;
+            border: var(--border-thick); margin-bottom: 20px;
+            position: relative; overflow: hidden;
+        }
+        .project-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(100%); transition: 0.4s; }
+        .brutal-card:hover .project-img img, 
+        .brutal-card.mobile-active .project-img img { filter: grayscale(0%); transform: scale(1.05); }
+
+        /* --- PRICE STICKER --- */
+        .price-wrapper { display: flex; justify-content: center; align-items: center; padding: 60px 0; position: relative; z-index: 5; }
+
+        .sticker-giant {
+            background: var(--acid-lime);
+            border: 4px solid var(--ink); border-radius: 70px;
+            padding: 70px 60px; text-align: center;
+            transform: rotate(-3deg); box-shadow: 15px 15px 0px var(--ink);
+            transition: all 0.28s cubic-bezier(0.25, 1, 0.5, 1);
+            position: relative; cursor: pointer;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            gap: 15px; color: var(--ink);
+        }
+
+        .sticker-giant:hover {
+            transform: scale(1.02) rotate(0deg);
+            box-shadow: 20px 20px 0px var(--ink);
+            background: var(--alert-orange); color: var(--paper);
+        }
+        
+        .sticker-hole {
+            width: 25px; height: 25px; background: var(--bg);
+            border: 3px solid var(--ink); border-radius: 50%;
+            position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 2;
+        }
+
+        .price-val {
+            font-family: var(--font-display); font-weight: 900;
+            font-size: clamp(40px, 5vw, 90px); line-height: 1.1;
+            letter-spacing: -0.03em; text-transform: uppercase;
+        }
+
+        .price-sub {
+            font-family: var(--font-display); font-size: clamp(14px, 1.5vw, 20px); 
+            font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase;
+            max-width: 25ch; line-height: 1.4;
+        }
+
+        footer {
+            background: var(--ink); color: var(--paper);
+            padding: 80px 20px; text-align: center;
+            border-top: 10px solid var(--acid-lime);
+            position: relative; z-index: 5;
+        }
+        
+        .footer-logo {
+            width: 300px; max-width: 80%; height: auto; opacity: 0.2;
+            margin-bottom: 20px; filter: grayscale(100%);
+        }
+
+        .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s var(--snap); }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        .geo-shape { position: absolute; z-index: 0; pointer-events: none; }
+        .shape-pill, .shape-rect { border: var(--border-thick); }
+        .shape-pill { width: 180px; height: 70px; border-radius: 100px; background: var(--acid-lime); }
+        .shape-rect { width: 120px; height: 120px; background: var(--alert-orange); transform: rotate(15deg); }
+        .shape-tri-wrapper { width: 150px; height: 150px; background: transparent; border: none; }
+        .shape-tri-wrapper svg { width: 100%; height: 100%; fill: var(--shock-pink); stroke: var(--ink); stroke-width: 4px; overflow: visible; }
+
+        /* --- MODAL FORM STYLES (NEW) --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5, 5, 5, 0.9);
+            z-index: 9999;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.3s;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-overlay.active { opacity: 1; pointer-events: all; }
+        
+        .modal-content {
+            background: var(--paper);
+            border: var(--border-thick);
+            padding: 40px;
+            width: 100%; max-width: 500px;
+            position: relative;
+            transform: translateY(50px) rotate(-2deg);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 15px 15px 0px var(--ink);
+        }
+        
+        .modal-overlay.active .modal-content { transform: translateY(0) rotate(0deg); }
+        
+        .close-modal {
+            position: absolute; top: 15px; right: 20px;
+            background: none; border: none;
+            font-family: var(--font-display); font-size: 30px; font-weight: 900;
+            cursor: pointer; color: var(--ink);
+        }
+        .close-modal:hover { color: var(--alert-orange); }
+
+        .form-group { margin-bottom: 25px; }
+        
+        .form-label {
+            font-family: var(--font-display); font-weight: 800; text-transform: uppercase;
+            font-size: 14px; margin-bottom: 10px; display: block;
+        }
+        
+        .brutal-input {
+            width: 100%;
+            background: var(--bg);
+            border: 3px solid var(--ink);
+            padding: 15px;
+            font-family: var(--font-body); font-weight: 700; font-size: 16px;
+            color: var(--ink);
+            border-radius: 0; /* Brutal box */
+            transition: 0.2s;
+        }
+        
+        .brutal-input:focus {
+            outline: none;
+            background: var(--paper);
+            box-shadow: 6px 6px 0px var(--acid-lime);
+            transform: translate(-3px, -3px);
+        }
+
+        .form-submit-btn {
+            width: 100%;
+            font-family: var(--font-display); font-weight: 900;
+            text-transform: uppercase; font-size: 20px;
+            background: var(--acid-lime); color: var(--ink);
+            border: 3px solid var(--ink); padding: 20px;
+            cursor: pointer; box-shadow: 6px 6px 0px var(--ink);
+            transition: 0.2s;
+        }
+        .form-submit-btn:hover {
+            transform: translate(2px, 2px);
+            box-shadow: 2px 2px 0px var(--ink);
+            background: var(--alert-orange);
+            color: var(--paper);
+        }
+        .form-submit-btn:disabled {
+            background: #ccc; cursor: not-allowed;
+            transform: none; box-shadow: none;
+        }
+
+        @media (max-width: 900px) {
+            html, body { overflow-x: hidden; position: relative; }
+            .container { padding: 0 20px; width: 100%; }
+            .logo-img { height: 35px; }
+
+            .hero-section { text-align: center; padding-top: 20px; }
+            .hero-tags { justify-content: center; margin-bottom: 30px; }
+            .mega-title { font-size: 13vw; text-align: center; word-spacing: normal; line-height: 1.1; margin-bottom: 40px; }
+            .hero-desc { text-align: left; transform: rotate(0deg); width: 100%; margin: 0 auto 40px auto; }
+            .btn-industrial { width: 100%; max-width: 400px; }
+
+            .bento-grid { grid-template-columns: 1fr; gap: 40px; }
+            .span-4, .span-6, .span-8 { grid-column: span 1; width: 100%; }
+            .brutal-card[style*="top: 80px"] { top: 0 !important; }
+
+            .section-title { transform: rotate(-1deg); font-size: 32px; padding: 10px 20px; margin-bottom: 40px; max-width: 100%; }
+            .geo-shape { opacity: 0.5; transform: scale(0.6); }
+            .footer-logo { width: 200px; }
+
+            .marquee-strip { transform: rotate(-2deg) scale(1.05); width: 110%; margin-left: -5%; margin-top: 80px; margin-bottom: 80px; }
+
+            footer h2 { font-size: 28px; line-height: 2.0 !important; margin-bottom: 40px !important; }
+            footer span { display: inline-block; margin-top: 5px; }
+
+            .sticker-giant {
+                animation: none; transition: all 0.4s ease;
+                padding: 100px 60px 80px 60px; border-radius: 70px;
+            }
+            
+            .sticker-giant.mobile-active {
+                animation: none; transition: all 0.4s ease;
+                background: var(--alert-orange); color: var(--paper);
+                transform: rotate(3deg) scale(1.05);
+                box-shadow: 20px 20px 0px var(--ink);
+                padding: 80px 20px 60px 20px;
+            }
+            
+            /* MODAL MOBILE */
+            .modal-content { max-width: 90%; padding: 30px 20px; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <!-- NAV -->
+        <nav>
+            <img src="fullLogo.png" alt="LOUD STUDIO" class="logo-img">
+        </nav>
+
+        <!-- HERO -->
+        <header class="hero-section section-gap">
+            <div class="hero-tags reveal">
+                <span class="badge">/// SYSTEM ARCHITECT</span>
+                <span class="badge" style="background:var(--shock-pink)">/// REACT / PYTHON</span>
+                <span class="badge" style="background:var(--cyan-punch)">/// AVAILABLE</span>
+            </div>
+            
+            <h1 class="mega-title reveal">
+                СМЫСЛ.<br>
+                ФОРМА.<br>
+                <span style="color: var(--alert-orange)">ФУНКЦИЯ.</span>
+            </h1>
+
+            <div class="hero-desc reveal">
+                <p><strong>14 ЛЕТ. ЦИФРОВАЯ ИНФРАСТРУКТУРА.</strong></p>
+                <p style="margin-top: 10px;">Никакой воды. Никаких менеджеров. Сложные парсеры, SPA приложения и автоматизация, которая приносит деньги.</p>
+            </div>
+
+            <div class="reveal" style="text-align: center;">
+                <!-- 1. НОВАЯ КНОПКА С ACTION -->
+                <button class="btn-industrial open-modal-btn">
+                    ЗАМУТИТЬ ПРОЕКТ
+                </button>
+            </div>
+        </header>
+    </div>
+
+    <!-- MARQUEE -->
+    <div class="marquee-strip">
+        <div class="marquee-content">
+            /// ОТКРЫТ К ЗАКАЗАМ /// ЧИСТЫЙ КОД /// ПАРСИНГ /// АРХИТЕКТУРА /// БЕЗ ПОСРЕДНИКОВ /// ОТКРЫТ К ЗАКАЗАМ /// ЧИСТЫЙ КОД /// ПАРСИНГ /// АРХИТЕКТУРА /// БЕЗ ПОСРЕДНИКОВ
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- TECH STACK -->
+        <section class="section-gap" style="position: relative;">
+            <div class="geo-shape shape-tri-wrapper" style="top: 50%; left: -60px; transform: translateY(-50%) rotate(-10deg);">
+                <svg viewBox="0 0 100 100"><polygon points="50,5 95,95 5,95" /></svg>
+            </div>
+            <h2 class="section-title reveal">ТЕХ_СТЕК</h2>
+            <div class="bento-grid">
+                <div class="brutal-card span-4 card-white reveal">
+                    <span class="badge">01. VISUAL</span>
+                    <div>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
+                        <h3>UI/UX ИНЖЕНЕРИЯ</h3>
+                        <p style="margin-top: 15px; font-size: 16px;">Логика взаимодействия. Figma. Анимации, которые направляют, а не бесят.</p>
+                    </div>
+                </div>
+                <!-- ... other cards ... -->
+                <div class="brutal-card span-4 card-lime reveal">
+                    <span class="badge" style="background:var(--paper)">02. CORE</span>
+                    <div>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
+                        <h3>PYTHON & JS</h3>
+                        <p style="margin-top: 15px; font-size: 16px;">React для молниеносного фронта. Python для мозгов. Чистый код.</p>
+                    </div>
+                </div>
+                <div class="brutal-card span-4 card-pink reveal">
+                    <span class="badge" style="background:var(--paper)">03. OPS</span>
+                    <div>
+                        <svg class="icon-svg" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+                        <h3>SEO & DEPLOY</h3>
+                        <p style="margin-top: 15px; font-size: 16px;">Сайт должен работать 24/7. Защита от падений и базовая SEO.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FORMATS -->
+        <section class="section-gap" style="position: relative;">
+             <div class="geo-shape shape-pill" style="top: 20px; right: 0; transform: rotate(5deg);"></div>
+            <h2 class="section-title reveal" style="transform: rotate(-2deg); background: var(--alert-orange);">ФОРМАТЫ</h2>
+            <div class="bento-grid">
+                <div class="brutal-card span-6 reveal" style="min-height: 300px;">
+                    <div>
+                        <h3>ЛЕНДИНГ<br>ПЕЙДЖ</h3>
+                        <div style="width: 50px; height: 5px; background: var(--ink); margin: 20px 0;"></div>
+                    </div>
+                    <p>Агрессивный маркетинг. Тест гипотез. Запуск трафика. Высокая конверсия.</p>
+                </div>
+                <div class="brutal-card span-6 reveal" style="min-height: 300px; transform: rotate(1deg);">
+                    <div>
+                        <h3>WEB<br>SERVICES</h3>
+                        <div style="width: 50px; height: 5px; background: var(--ink); margin: 20px 0;"></div>
+                    </div>
+                    <p>Личные кабинеты, дашборды. Сложная логика внутри, простота снаружи.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- PORTFOLIO -->
+        <section class="section-gap" style="position: relative;">
+             <div class="geo-shape shape-rect" style="bottom: -20px; left: -20px; z-index: 1;"></div>
+            <h2 class="section-title reveal">КЕЙСЫ</h2>
+            <div class="bento-grid">
+                <div class="brutal-card span-6 reveal">
+                    <div class="project-img">
+                        <div style="width:100%; height:100%; background: #111; display: flex; align-items: center; justify-content: center; color: #333; font-family: var(--font-display); font-size: 40px;">IMG_01</div>
+                    </div>
+                    <div>
+                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <span class="badge">PYTHON</span><span class="badge">DATA</span>
+                        </div>
+                        <h3>AVITO PARSER</h3>
+                        <p style="font-size: 14px; margin-top: 10px; color: #666;">Система сбора и аналитики данных в реальном времени.</p>
+                    </div>
+                </div>
+                <div class="brutal-card span-6 reveal" style="position: relative; top: 80px;">
+                    <div class="project-img">
+                        <div style="width:100%; height:100%; background: #222; display: flex; align-items: center; justify-content: center; color: #444; font-family: var(--font-display); font-size: 40px;">IMG_02</div>
+                    </div>
+                    <div>
+                        <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <span class="badge">REACT</span><span class="badge">GSAP</span>
+                        </div>
+                        <h3>NEON SHOP</h3>
+                        <p style="font-size: 14px; margin-top: 10px; color: #666;">Интернет-магазин с нестандартным UX и анимациями.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PRICE STICKER -->
+        <section class="section-gap reveal">
+            <div class="price-wrapper">
+                <div class="sticker-giant">
+                    <div class="sticker-hole"></div>
+                    <div class="price-val">ОТ 9.500 ₽</div>
+                    <div class="price-sub">ВСЕГДА МОЖЕМ ДОГОВОРИТЬСЯ :)</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FOOTER CTA -->
+        <section class="section-gap" style="text-align: center;">
+            <h2 style="font-size: clamp(30px, 5vw, 60px); margin-bottom: 30px;">
+                СДЕЛКА БЕЗ <span style="background: var(--ink); color: var(--paper); padding: 0 10px;">РИСКА</span>
+            </h2>
+            <p style="margin: 0 auto 50px auto; font-size: 20px;">
+                Концепт первого экрана — <b>БЕСПЛАТНО</b>.<br>
+                Нравится — работаем. Нет — расходимся.
+            </p>
+            <!-- 2. НОВАЯ КНОПКА В ФУТЕРЕ -->
+            <button class="btn-industrial open-modal-btn" style="background: var(--cyan-punch);">
+                ЗАМУТИТЬ ПРОЕКТ
+            </button>
+        </section>
+
+    </div>
+
+    <footer>
+        <img src="fullLogo.png" alt="LOUD STUDIO" class="footer-logo">
+        <div style="margin-top: 20px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;">
+            Digital Architecture © 2025
+        </div>
+    </footer>
+
+    <!-- !!! MODAL WINDOW (POPUP) !!! -->
+    <div class="modal-overlay" id="modal">
+        <div class="modal-content">
+            <button class="close-modal" id="closeModal">×</button>
+            <h2 style="font-size: 32px; margin-bottom: 20px;">ЧЕ МУТИМ?</h2>
+            
+            <form id="projectForm">
+                <div class="form-group">
+                    <label class="form-label">СУТЬ ПРОЕКТА</label>
+                    <textarea class="brutal-input" name="description" rows="3" placeholder="Сайт, парсер, убийца Uber..." required></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label class="form-label">КУДА ПИСАТЬ</label>
+                    <input type="text" class="brutal-input" name="contact" placeholder="@username или цифры" required>
+                </div>
+
+                <button type="submit" class="form-submit-btn">ОТПРАВИТЬ</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 1. REVEAL ANIMATION
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('active');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+
+        // 2. MOBILE SCROLL TRIGGER
+        if (window.innerWidth < 900) {
+            const mobileHoverObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('mobile-active');
+                    } else {
+                        entry.target.classList.remove('mobile-active');
+                    }
+                });
+            }, { rootMargin: "-40% 0px -40% 0px", threshold: 0 });
+
+            const targets = document.querySelectorAll('.brutal-card, .sticker-giant');
+            targets.forEach(el => mobileHoverObserver.observe(el));
+        }
+
+        // 3. MODAL LOGIC & FORM SUBMIT
+        const modal = document.getElementById('modal');
+        const openBtns = document.querySelectorAll('.open-modal-btn');
+        const closeBtn = document.getElementById('closeModal');
+        const form = document.getElementById('projectForm');
+        const submitBtn = form.querySelector('.form-submit-btn');
+
+        // Open
+        openBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                modal.classList.add('active');
+            });
+        });
+
+        // Close
+        closeBtn.addEventListener('click', () => modal.classList.remove('active'));
+        modal.addEventListener('click', (e) => {
+            if(e.target === modal) modal.classList.remove('active');
+        });
+
+        // SUBMIT TO VERCEL BACKEND
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            // Loading State
+            submitBtn.textContent = "ЩА, СЕКУНДУ...";
+            submitBtn.disabled = true;
+            submitBtn.style.background = "#FFD700"; // Yellow wait
+
+            // Collect Data
+            const formData = {
+                description: form.description.value,
+                contact: form.contact.value
+            };
+
+            try {
+                const response = await fetch('/api/submit', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok) {
+                    submitBtn.textContent = "УЛЕТЕЛО! 🚀";
+                    submitBtn.style.background = "var(--acid-lime)";
+                    setTimeout(() => {
+                        modal.classList.remove('active');
+                        form.reset();
+                        submitBtn.textContent = "ОТПРАВИТЬ";
+                        submitBtn.disabled = false;
+                    }, 2000);
+                } else {
+                    throw new Error('Server error');
+                }
+            } catch (error) {
+                console.error(error);
+                submitBtn.textContent = "ОШИБКА :( ПИШИ В ТГ";
+                submitBtn.style.background = "var(--alert-orange)";
+                setTimeout(() => {
+                    submitBtn.textContent = "ОТПРАВИТЬ";
+                    submitBtn.disabled = false;
+                    submitBtn.style.background = "var(--acid-lime)";
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
