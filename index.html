@@ -29,7 +29,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
     
     <style>
-        /* ... (ВСЕ ТВОИ СТИЛИ ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ) ... */
         :root {
             --bg: #FAFAFA; --ink: #050505; --paper: #FFFFFF;
             --acid-lime: #D4FF00; --shock-pink: #FF00FF; --cyan-punch: #00FFFF; --alert-orange: #FF5500;
@@ -89,6 +88,11 @@
         .price-sub { font-family: var(--font-display); font-size: clamp(14px, 1.5vw, 20px); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; max-width: 25ch; line-height: 1.4; }
         footer { background: var(--ink); color: var(--paper); padding: 80px 20px; text-align: center; border-top: 10px solid var(--acid-lime); position: relative; z-index: 5; }
         .footer-logo { width: 300px; max-width: 80%; height: auto; opacity: 0.2; margin-bottom: 30px; filter: grayscale(100%); }
+        .footer-contacts { margin: 40px 0; }
+        .footer-contacts h4 { color: #777; font-weight: 700; font-size: 14px; letter-spacing: 0.1em; margin-bottom: 20px; }
+        .contact-items { display: flex; align-items: center; justify-content: center; gap: 30px; flex-wrap: wrap; }
+        .contact-link { color: var(--paper); font-family: var(--font-display); font-weight: 800; font-size: 18px; text-decoration: none; transition: color 0.2s; }
+        .contact-link:hover { color: var(--acid-lime); }
         .legal-links { display: flex; justify-content: center; gap: 20px; margin-top: 30px; flex-wrap: wrap; }
         .legal-link { color: #666; font-size: 14px; text-decoration: none; border-bottom: 1px solid #666; transition: 0.3s; cursor: pointer; }
         .legal-link:hover { color: var(--acid-lime); border-color: var(--acid-lime); }
@@ -138,6 +142,8 @@
             .sticker-hole { top: 10px !important; width: 15px !important; height: 15px !important; } 
             .sticker-giant.mobile-active { animation: none; transition: all 0.4s ease; background: var(--alert-orange); color: var(--paper); transform: rotate(3deg) scale(1.05); box-shadow: 15px 15px 0px var(--ink); padding: 40px 20px 30px 20px !important; }
             .modal-content { max-width: 90%; padding: 30px 20px; }
+            .contact-items { flex-direction: column; gap: 15px; }
+            .contact-link { font-size: 16px; }
         }
     </style>
 
@@ -372,8 +378,17 @@
     <footer>
         <img src="fullLogo.png" alt="Логотип LOUD STUDIO" class="footer-logo">
         <div style="margin-top: 20px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;">
-            DIGITAL PRODUCTION © 2025
+            LOUD STUDIO © 2025
         </div>
+        
+        <div class="footer-contacts">
+            <h4>ЕСТЬ ВОПРОСЫ?</h4>
+            <div class="contact-items">
+                <a href="https://t.me/L0udStudi0" target="_blank" class="contact-link">TG: @L0udStudi0</a>
+                <a href="tel:+79002606590" class="contact-link">TEL: +7 (900) 260-65-90</a>
+            </div>
+        </div>
+
         <div class="legal-links">
             <span class="legal-link" data-modal="policy">Политика конфиденциальности</span>
             <span class="legal-link" data-modal="terms">Условия (Оферта)</span>
