@@ -3,337 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LOUD STUDIO | DIGITAL PRODUCTION</title>
     
+    <!-- 1. МОЗГИ САЙТА (SEO CORE) -->
+    <title>LOUD STUDIO | Разработка сайтов и веб-сервисов в Сочи</title>
+    <meta name="description" content="Создаем сайты под ключ в Сочи от 5 дней. LOUD STUDIO — разработка лендингов, сложных систем, парсеров и Web3-проектов. Закажи бесплатный концепт!">
+    <meta name="keywords" content="разработка сайтов сочи, создать сайт сочи, заказать лендинг, веб-студия сочи, loud studio, парсер на заказ, react, python, web3 разработка">
+    
+    <!-- CANONICAL URL (Замени на свой домен, когда купишь) -->
+    <link rel="canonical" href="https://tvoi-domen.ru/">
+
+    <!-- OPEN GRAPH (Для красивых ссылок в соцсетях) -->
+    <meta property="og:title" content="LOUD STUDIO | Разработка сайтов и веб-сервисов в Сочи">
+    <meta property="og:description" content="От лендинга до сложной CRM. Делаем быстро, мощно и без воды.">
+    <meta property="og:image" content="https://tvoi-domen.ru/og-image.png"> <!-- Создай картинку 1200x630px -->
+    <meta property="og:url" content="https://tvoi-domen.ru/">
+    <meta property="og:type" content="website">
+
+    <!-- FAVICON (Сделай иконку и положи в корень) -->
+    <link rel="icon" href="/favicon.ico" sizes="any">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
     <!-- FONTS -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Unbounded:wght@200..900&display=swap" rel="stylesheet">
     
     <style>
+        /* ... (ВСЕ ТВОИ СТИЛИ ОСТАЮТСЯ БЕЗ ИЗМЕНЕНИЙ) ... */
         :root {
-            /* PALETTE */
-            --bg: #FAFAFA;
-            --ink: #050505;
-            --paper: #FFFFFF;
-            
-            /* HIGHLIGHTERS */
-            --acid-lime: #D4FF00;
-            --shock-pink: #FF00FF;
-            --cyan-punch: #00FFFF;
-            --alert-orange: #FF5500;
-            
-            /* STRUCTURAL */
-            --border-thick: 3px solid var(--ink);
-            --border-thin: 2px solid var(--ink);
-            
-            /* SHADOWS */
-            --shadow-dist: 8px;
-            --hard-shadow: var(--shadow-dist) var(--shadow-dist) 0px var(--ink);
-            --hard-shadow-hover: 12px 12px 0px var(--ink);
-            
-            /* TYPE */
-            --font-display: 'Unbounded', sans-serif;
-            --font-body: 'Manrope', sans-serif;
-            
-            /* MOTION */
+            --bg: #FAFAFA; --ink: #050505; --paper: #FFFFFF;
+            --acid-lime: #D4FF00; --shock-pink: #FF00FF; --cyan-punch: #00FFFF; --alert-orange: #FF5500;
+            --border-thick: 3px solid var(--ink); --border-thin: 2px solid var(--ink);
+            --shadow-dist: 8px; --hard-shadow: var(--shadow-dist) var(--shadow-dist) 0px var(--ink); --hard-shadow-hover: 12px 12px 0px var(--ink);
+            --font-display: 'Unbounded', sans-serif; --font-body: 'Manrope', sans-serif;
             --snap: cubic-bezier(0.25, 1, 0.5, 1);
         }
-
-        /* RESET & BASE */
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
         ::selection { background: var(--ink); color: var(--acid-lime); }
-
         html, body { width: 100%; overflow-x: hidden; }
-
-        body {
-            background-color: var(--bg);
-            color: var(--ink);
-            font-family: var(--font-body);
-            font-size: 18px;
-            line-height: 1.5;
-            position: relative;
-        }
-
-        body::before {
-            content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E");
-            pointer-events: none; z-index: 9999; mix-blend-mode: multiply;
-        }
-
-        /* --- UTILITIES --- */
+        body { background-color: var(--bg); color: var(--ink); font-family: var(--font-body); font-size: 18px; line-height: 1.5; position: relative; }
+        body::before { content: ""; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.07'/%3E%3C/svg%3E"); pointer-events: none; z-index: 9999; mix-blend-mode: multiply; }
         .container { max-width: 1400px; margin: 0 auto; padding: 0 20px; position: relative; z-index: 2; }
         .section-gap { margin-bottom: 180px; position: relative; }
-
-        /* --- TYPOGRAPHY --- */
-        h1, h2, h3, h4 {
-            font-family: var(--font-display); text-transform: uppercase;
-            font-weight: 900; line-height: 1.0; color: var(--ink);
-        }
-
-        .mega-title {
-            font-size: clamp(40px, 13vw, 180px); letter-spacing: -0.02em;
-            word-spacing: 10px; text-align: left; margin-bottom: 30px;
-            position: relative; z-index: 2;
-        }
-        
-        .section-title {
-            font-size: clamp(32px, 6vw, 80px); background: var(--ink); color: var(--bg);
-            display: inline-block; padding: 15px 30px; transform: rotate(-2deg);
-            margin-bottom: 60px; border: 2px solid var(--ink); position: relative; z-index: 2;
-        }
-
+        h1, h2, h3, h4 { font-family: var(--font-display); text-transform: uppercase; font-weight: 900; line-height: 1.0; color: var(--ink); }
+        .mega-title { font-size: clamp(40px, 13vw, 180px); letter-spacing: -0.02em; word-spacing: 10px; text-align: left; margin-bottom: 30px; position: relative; z-index: 2; }
+        .section-title { font-size: clamp(32px, 6vw, 80px); background: var(--ink); color: var(--bg); display: inline-block; padding: 15px 30px; transform: rotate(-2deg); margin-bottom: 60px; border: 2px solid var(--ink); position: relative; z-index: 2; }
         p { font-weight: 500; color: #333; max-width: 60ch; }
-        
-        .badge {
-            font-family: var(--font-display); font-size: 11px; font-weight: 800;
-            text-transform: uppercase; border: 2px solid var(--ink); padding: 6px 14px;
-            border-radius: 50px; background: var(--paper); display: inline-block;
-            margin-bottom: 16px; letter-spacing: 0.05em;
-        }
-
-        .icon-svg {
-            width: 56px; height: 56px; display: block; margin-bottom: 24px;
-            fill: none; stroke: var(--ink); stroke-width: 2;
-            stroke-linecap: square; stroke-linejoin: miter;
-        }
-
-        /* --- COMPONENTS --- */
-        .btn-industrial {
-            position: relative; display: inline-flex; align-items: center; justify-content: center;
-            font-family: var(--font-display); font-weight: 800; font-size: clamp(16px, 1.5vw, 20px);
-            text-transform: uppercase; text-decoration: none; color: var(--ink);
-            background: var(--acid-lime); border: var(--border-thick); padding: 24px 48px;
-            border-radius: 100px; box-shadow: var(--hard-shadow); transform: translate3d(0,0,0);
-            transition: all 0.1s linear; cursor: pointer; overflow: hidden; z-index: 5; letter-spacing: 0.05em;
-        }
+        .badge { font-family: var(--font-display); font-size: 11px; font-weight: 800; text-transform: uppercase; border: 2px solid var(--ink); padding: 6px 14px; border-radius: 50px; background: var(--paper); display: inline-block; margin-bottom: 16px; letter-spacing: 0.05em; }
+        .icon-svg { width: 56px; height: 56px; display: block; margin-bottom: 24px; fill: none; stroke: var(--ink); stroke-width: 2; stroke-linecap: square; stroke-linejoin: miter; }
+        .btn-industrial { position: relative; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-display); font-weight: 800; font-size: clamp(16px, 1.5vw, 20px); text-transform: uppercase; text-decoration: none; color: var(--ink); background: var(--acid-lime); border: var(--border-thick); padding: 24px 48px; border-radius: 100px; box-shadow: var(--hard-shadow); transform: translate3d(0,0,0); transition: all 0.1s linear; cursor: pointer; overflow: hidden; z-index: 5; letter-spacing: 0.05em; }
         .btn-industrial:hover { transform: translate(var(--shadow-dist), var(--shadow-dist)); box-shadow: 0px 0px 0px var(--ink); }
         .btn-industrial::after { content: "→"; margin-left: 10px; transition: transform 0.2s; }
         .btn-industrial:hover::after { transform: translateX(5px); }
-
-        .brutal-card {
-            background: var(--paper); border: var(--border-thick); padding: 40px;
-            position: relative; box-shadow: var(--hard-shadow);
-            transition: transform 0.3s var(--snap), box-shadow 0.3s var(--snap);
-            display: flex; flex-direction: column; justify-content: space-between; z-index: 2;
-        }
+        .brutal-card { background: var(--paper); border: var(--border-thick); padding: 40px; position: relative; box-shadow: var(--hard-shadow); transition: transform 0.3s var(--snap), box-shadow 0.3s var(--snap); display: flex; flex-direction: column; justify-content: space-between; z-index: 2; }
         .brutal-card:hover { transform: translate(-4px, -4px) !important; box-shadow: var(--hard-shadow-hover); }
         .brutal-card.mobile-active { transform: translate(var(--shadow-dist), var(--shadow-dist)) !important; box-shadow: 0px 0px 0px var(--ink) !important; }
         .brutal-card::before { content: "+"; position: absolute; top: 10px; right: 15px; font-family: var(--font-display); font-weight: 800; font-size: 24px; }
-
         .card-lime { background-color: var(--acid-lime) !important; }
         .card-pink { background-color: var(--shock-pink) !important; }
         .card-cyan { background-color: var(--cyan-punch) !important; }
         .card-white { background-color: var(--paper) !important; }
-
         .bento-grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 30px; position: relative; }
         .span-4 { grid-column: span 4; } .span-6 { grid-column: span 6; } .span-8 { grid-column: span 8; } .span-12 { grid-column: span 12; }
-
-        /* --- SECTIONS --- */
-        nav {
-            display: flex; justify-content: center; align-items: center; padding: 20px 0;
-            border-bottom: var(--border-thick); margin-bottom: 30px; background: var(--bg); position: relative; z-index: 10;
-        }
+        nav { display: flex; justify-content: center; align-items: center; padding: 20px 0; border-bottom: var(--border-thick); margin-bottom: 30px; background: var(--bg); position: relative; z-index: 10; }
         .logo-img { height: 50px; width: auto; object-fit: contain; display: block; }
-
-        .marquee-strip {
-            background: var(--ink); color: #FFFFFF; border-top: var(--border-thick); border-bottom: var(--border-thick);
-            padding: 15px 0; overflow: hidden; white-space: nowrap; transform: rotate(-1deg) scale(1.02);
-            margin: 60px 0; z-index: 10; position: relative;
-        }
-        .marquee-content {
-            display: inline-block; animation: scroll-left 10s linear infinite;
-            font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: 22px; letter-spacing: 0.05em;
-        }
+        .marquee-strip { background: var(--ink); color: #FFFFFF; border-top: var(--border-thick); border-bottom: var(--border-thick); padding: 15px 0; overflow: hidden; white-space: nowrap; transform: rotate(-1deg) scale(1.02); margin: 60px 0; z-index: 10; position: relative; }
+        .marquee-content { display: inline-block; animation: scroll-left 12s linear infinite; font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: 22px; letter-spacing: 0.05em; }
         @keyframes scroll-left { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-
         .hero-section { padding-top: 10px; text-align: left; position: relative; }
         .hero-tags { display: flex; gap: 10px; margin-bottom: 20px; flex-wrap: wrap;}
-        
-        .hero-desc {
-            font-size: clamp(18px, 1.5vw, 24px); line-height: 1.4; background: var(--paper); border: var(--border-thick);
-            padding: 24px 30px; box-shadow: var(--hard-shadow); max-width: 700px; margin-bottom: 40px; transform: rotate(1deg); position: relative; z-index: 2;
-        }
-
-        /* --- WORKFLOW LIST --- */
+        .hero-desc { font-size: clamp(18px, 1.5vw, 24px); line-height: 1.4; background: var(--paper); border: var(--border-thick); padding: 24px 30px; box-shadow: var(--hard-shadow); max-width: 700px; margin-bottom: 40px; transform: rotate(1deg); position: relative; z-index: 2; }
         .workflow-item { display: flex; align-items: flex-start; margin-bottom: 30px; }
         .wf-num { font-family: var(--font-display); font-size: 40px; font-weight: 900; color: var(--ink); margin-right: 20px; line-height: 1; }
         .wf-content h4 { font-size: 20px; margin-bottom: 5px; color: var(--ink); }
         .wf-content p { font-size: 16px; color: #555; }
-
-        /* --- PORTFOLIO IMAGE HOLDER (FIXED) --- */
-        .project-img {
-            width: 100%; aspect-ratio: 16/9; border: var(--border-thick); margin-bottom: 20px;
-            position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center;
-        }
-        .logo-frame {
-            width: calc(100% - 20px); height: calc(100% - 20px);
-            background: var(--paper); border: var(--border-thin);
-            display: flex; align-items: center; justify-content: center;
-        }
-        .project-img img {
-            max-width: 60%; max-height: 50%; object-fit: contain; transition: transform 0.3s;
-        }
-        .brutal-card:hover .project-img img { transform: scale(1.1); }
-        .brutal-card.mobile-active .project-img img { transform: scale(1.1); }
-
-        /* --- PRICE STICKER --- */
+        .project-img { width: 100%; aspect-ratio: 16/9; border: var(--border-thick); margin-bottom: 20px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
+        .logo-frame { width: calc(100% - 20px); height: calc(100% - 20px); background: var(--paper); border: var(--border-thin); display: flex; align-items: center; justify-content: center; }
+        .project-img img { max-width: 60%; max-height: 50%; object-fit: contain; transition: transform 0.3s; }
+        .brutal-card:hover .project-img img, .brutal-card.mobile-active .project-img img { transform: scale(1.1); }
         .price-wrapper { display: flex; justify-content: center; align-items: center; padding: 60px 0; position: relative; z-index: 5; }
-        .sticker-giant {
-            background: var(--acid-lime); border: 4px solid var(--ink); border-radius: 70px;
-            padding: 100px 60px 80px 60px; text-align: center; transform: rotate(-3deg); box-shadow: 15px 15px 0px var(--ink);
-            transition: all 0.28s cubic-bezier(0.25, 1, 0.5, 1); position: relative; cursor: pointer;
-            display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; color: var(--ink);
-        }
-        .sticker-giant:hover {
-            transform: scale(1.02) rotate(0deg); box-shadow: 20px 20px 0px var(--ink);
-            background: var(--alert-orange); color: var(--paper);
-        }
-        .sticker-hole {
-            width: 25px; height: 25px; background: var(--bg); border: 3px solid var(--ink); border-radius: 50%;
-            position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 2;
-        }
-        .price-val {
-            font-family: var(--font-display); font-weight: 900; font-size: clamp(40px, 5vw, 90px); line-height: 1.1; letter-spacing: -0.03em; text-transform: uppercase;
-        }
-        .price-sub {
-            font-family: var(--font-display); font-size: clamp(14px, 1.5vw, 20px); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; max-width: 25ch; line-height: 1.4;
-        }
-
-        /* --- FOOTER --- */
-        footer {
-            background: var(--ink); color: var(--paper); padding: 80px 20px; text-align: center; border-top: 10px solid var(--acid-lime); position: relative; z-index: 5;
-        }
+        .sticker-giant { background: var(--acid-lime); border: 4px solid var(--ink); border-radius: 70px; padding: 100px 60px 80px 60px; text-align: center; transform: rotate(-3deg); box-shadow: 15px 15px 0px var(--ink); transition: all 0.28s cubic-bezier(0.25, 1, 0.5, 1); position: relative; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 15px; color: var(--ink); }
+        .sticker-giant:hover { transform: scale(1.02) rotate(0deg); box-shadow: 20px 20px 0px var(--ink); background: var(--alert-orange); color: var(--paper); }
+        .sticker-hole { width: 25px; height: 25px; background: var(--bg); border: 3px solid var(--ink); border-radius: 50%; position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 2; }
+        .price-val { font-family: var(--font-display); font-weight: 900; font-size: clamp(40px, 5vw, 90px); line-height: 1.1; letter-spacing: -0.03em; text-transform: uppercase; }
+        .price-sub { font-family: var(--font-display); font-size: clamp(14px, 1.5vw, 20px); font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; max-width: 25ch; line-height: 1.4; }
+        footer { background: var(--ink); color: var(--paper); padding: 80px 20px; text-align: center; border-top: 10px solid var(--acid-lime); position: relative; z-index: 5; }
         .footer-logo { width: 300px; max-width: 80%; height: auto; opacity: 0.2; margin-bottom: 30px; filter: grayscale(100%); }
         .legal-links { display: flex; justify-content: center; gap: 20px; margin-top: 30px; flex-wrap: wrap; }
         .legal-link { color: #666; font-size: 14px; text-decoration: none; border-bottom: 1px solid #666; transition: 0.3s; cursor: pointer; }
         .legal-link:hover { color: var(--acid-lime); border-color: var(--acid-lime); }
-
         .reveal { opacity: 0; transform: translateY(40px); transition: 0.8s var(--snap); }
         .reveal.active { opacity: 1; transform: translateY(0); }
-
         .geo-shape { position: absolute; z-index: 0; pointer-events: none; }
         .shape-pill { width: 180px; height: 70px; border-radius: 100px; background: var(--acid-lime); }
         .shape-tri-wrapper { width: 150px; height: 150px; background: transparent; border: none; }
         .shape-tri-wrapper svg { width: 100%; height: 100%; fill: var(--shock-pink); stroke: var(--ink); stroke-width: 4px; overflow: visible; }
-
-        /* --- MODAL --- */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.95);
-            z-index: 9999; display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(5px);
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 5, 5, 0.95); z-index: 9999; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.3s; backdrop-filter: blur(5px); }
         .modal-overlay.active { opacity: 1; pointer-events: all; }
-        
-        .modal-content {
-            background: var(--paper); border: var(--border-thick); padding: 40px;
-            width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto;
-            position: relative; transform: translateY(50px) rotate(-2deg);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 15px 15px 0px var(--ink);
-        }
+        .modal-content { background: var(--paper); border: var(--border-thick); padding: 40px; width: 100%; max-width: 600px; max-height: 90vh; overflow-y: auto; position: relative; transform: translateY(50px) rotate(-2deg); transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: 15px 15px 0px var(--ink); }
         .modal-overlay.active .modal-content { transform: translateY(0) rotate(0deg); }
-        
-        .close-modal {
-            position: absolute; top: 15px; right: 20px; background: none; border: none;
-            font-family: var(--font-display); font-size: 30px; font-weight: 900; cursor: pointer; color: var(--ink);
-        }
+        .close-modal { position: absolute; top: 15px; right: 20px; background: none; border: none; font-family: var(--font-display); font-size: 30px; font-weight: 900; cursor: pointer; color: var(--ink); }
         .close-modal:hover { color: var(--alert-orange); }
-
         .form-group { margin-bottom: 25px; }
         .form-label { font-family: var(--font-display); font-weight: 800; text-transform: uppercase; font-size: 14px; margin-bottom: 10px; display: block; }
-        .brutal-input {
-            width: 100%; background: var(--bg); border: 3px solid var(--ink); padding: 15px;
-            font-family: var(--font-body); font-weight: 700; font-size: 16px; color: var(--ink);
-            border-radius: 0; transition: 0.2s;
-        }
+        .brutal-input { width: 100%; background: var(--bg); border: 3px solid var(--ink); padding: 15px; font-family: var(--font-body); font-weight: 700; font-size: 16px; color: var(--ink); border-radius: 0; transition: 0.2s; }
         .brutal-input:focus { outline: none; background: var(--paper); box-shadow: 6px 6px 0px var(--acid-lime); transform: translate(-3px, -3px); }
-
-        .form-submit-btn {
-            width: 100%; font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: 20px;
-            background: var(--acid-lime); color: var(--ink); border: 3px solid var(--ink); padding: 20px;
-            cursor: pointer; box-shadow: 6px 6px 0px var(--ink); transition: 0.2s;
-        }
+        .form-submit-btn { width: 100%; font-family: var(--font-display); font-weight: 900; text-transform: uppercase; font-size: 20px; background: var(--acid-lime); color: var(--ink); border: 3px solid var(--ink); padding: 20px; cursor: pointer; box-shadow: 6px 6px 0px var(--ink); transition: 0.2s; }
         .form-submit-btn:hover { transform: translate(2px, 2px); box-shadow: 2px 2px 0px var(--ink); background: var(--alert-orange); color: var(--paper); }
         .form-submit-btn:disabled { background: #ccc; cursor: not-allowed; transform: none; box-shadow: none; }
-
         .legal-text { font-size: 14px; line-height: 1.6; color: #333; }
         .legal-text h3 { margin-top: 20px; margin-bottom: 10px; font-size: 18px; }
         .legal-text ul { padding-left: 20px; margin-bottom: 10px; }
-
         @media (max-width: 900px) {
             html, body { overflow-x: hidden; position: relative; }
             .container { padding: 0 20px; width: 100%; }
             .logo-img { height: 35px; }
-
             .hero-section { text-align: center; padding-top: 20px; }
             .hero-tags { justify-content: center; margin-bottom: 30px; }
             .mega-title { font-size: 13vw; text-align: center; word-spacing: normal; line-height: 1.1; margin-bottom: 40px; }
             .hero-desc { text-align: left; transform: rotate(0deg); width: 100%; margin: 0 auto 40px auto; }
             .btn-industrial { width: 100%; max-width: 400px; }
-
             .bento-grid { grid-template-columns: 1fr; gap: 40px; }
             .span-4, .span-6, .span-8 { grid-column: span 1; width: 100%; }
             .brutal-card[style*="top: 80px"] { top: 0 !important; }
-
             .section-title { transform: rotate(-1deg); font-size: 32px; padding: 10px 20px; margin-bottom: 40px; max-width: 100%; }
             .geo-shape { opacity: 0.5; transform: scale(0.6); }
             .footer-logo { width: 200px; }
-
             .marquee-strip { transform: rotate(-2deg) scale(1.05); width: 110%; margin-left: -5%; margin-top: 80px; margin-bottom: 80px; }
-
             footer h2 { font-size: 28px; line-height: 2.0 !important; margin-bottom: 40px !important; }
             footer span { display: inline-block; margin-top: 5px; }
-
-            /* MOBILE COMPACT PRICE STICKER */
-            .sticker-giant {
-                animation: none; transition: all 0.4s ease;
-                padding: 40px 20px 30px 20px !important; border-radius: 40px;
-            }
+            .sticker-giant { animation: none; transition: all 0.4s ease; padding: 40px 20px 30px 20px !important; border-radius: 40px; }
             .price-val { font-size: 32px !important; } 
             .price-sub { font-size: 12px !important; }
             .sticker-hole { top: 10px !important; width: 15px !important; height: 15px !important; } 
-            
-            .sticker-giant.mobile-active {
-                animation: none; transition: all 0.4s ease; background: var(--alert-orange); color: var(--paper);
-                transform: rotate(3deg) scale(1.05); box-shadow: 15px 15px 0px var(--ink); 
-                padding: 40px 20px 30px 20px !important;
-            }
-            
+            .sticker-giant.mobile-active { animation: none; transition: all 0.4s ease; background: var(--alert-orange); color: var(--paper); transform: rotate(3deg) scale(1.05); box-shadow: 15px 15px 0px var(--ink); padding: 40px 20px 30px 20px !important; }
             .modal-content { max-width: 90%; padding: 30px 20px; }
         }
     </style>
+
+    <!-- 2. СЕКРЕТНЫЙ КОД ДЛЯ GOOGLE (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "ProfessionalService",
+      "name": "LOUD STUDIO",
+      "image": "https://tvoi-domen.ru/fullLogo.png",
+      "@id": "https://tvoi-domen.ru/",
+      "url": "https://tvoi-domen.ru/",
+      "telephone": "",
+      "description": "Разработка сайтов и сложных веб-сервисов в Сочи. Создаем лендинги, парсеры, Web3-проекты. Работаем быстро, без бюрократии, с гарантией результата.",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Сочи",
+        "addressCountry": "RU"
+      },
+      "priceRange": "от 29000 RUB",
+      "serviceType": [
+        "Разработка сайтов",
+        "Создание лендингов",
+        "Веб-программирование",
+        "Разработка парсеров",
+        "Web3 разработка"
+       ]
+    }
+    </script>
+
 </head>
 <body>
 
     <div class="container">
-        <nav><img src="fullLogo.png" alt="LOUD STUDIO" class="logo-img"></nav>
+        <nav><img src="fullLogo.png" alt="Логотип веб-студии LOUD STUDIO" class="logo-img"></nav>
 
         <header class="hero-section section-gap">
             <div class="hero-tags reveal">
-                <span class="badge">/// FULL STACK</span>
+                <span class="badge">/// РАЗРАБОТКА САЙТОВ В СОЧИ</span>
                 <span class="badge" style="background:var(--shock-pink)">/// REACT / PYTHON</span>
                 <span class="badge" style="background:var(--cyan-punch)">/// СРОКИ: ОТ 5 ДНЕЙ</span>
             </div>
-            <h1 class="mega-title reveal">ЛЮБАЯ<br>ЗАДАЧА.<br><span style="color: var(--alert-orange)">БЕЗ ВОДЫ.</span></h1>
+            
+            <h1 class="mega-title reveal">
+                САЙТЫ<br>
+                ПОД КЛЮЧ.<br>
+                <span style="color: var(--alert-orange)">БЕЗ ВОДЫ.</span>
+            </h1>
+
             <div class="hero-desc reveal">
-                <p><strong>МЫ ДЕЛАЕМ ВЕБ, КОТОРЫЙ РАБОТАЕТ.</strong></p>
-                <p style="margin-top: 10px;">Простые лендинги, интернет-магазины или сложные парсеры данных. Делаем быстро, четко и без лишней бюрократии.</p>
+                <p><strong>LOUD STUDIO — создаем веб-сервисы и сайты в Сочи, которые работают.</strong></p>
+                <p style="margin-top: 10px;">Берем в работу всё: от простого лендинга для теста ниши до сложных систем с парсерами и API. Делаем быстро, четко и без лишней бюрократии.</p>
             </div>
+
             <div class="reveal" style="text-align: center;">
                 <button class="btn-industrial open-modal-btn">ЗАМУТИТЬ ПРОЕКТ</button>
             </div>
         </header>
     </div>
 
-    <!-- MARQUEE SEPARATOR -->
     <div class="marquee-strip">
         <div class="marquee-content">
-            <!-- ПЕРВАЯ ПОЛОВИНА -->
             /// ПОЛНЫЙ ЦИКЛ РАЗРАБОТКИ /// ИНТЕГРАЦИЯ С API /// WEB3 & BLOCKCHAIN /// 3D АНИМАЦИИ /// SEO-ОПТИМИЗАЦИЯ /// REACT /// PYTHON /// NODE.JS /// ГОТОВНОСТЬ К НАГРУЗКАМ
-            
-            <!-- ВТОРАЯ ПОЛОВИНА (КОПИЯ) -->
             /// ПОЛНЫЙ ЦИКЛ РАЗРАБОТКИ /// ИНТЕГРАЦИЯ С API /// WEB3 & BLOCKCHAIN /// 3D АНИМАЦИИ /// SEO-ОПТИМИЗАЦИЯ /// REACT /// PYTHON /// NODE.JS /// ГОТОВНОСТЬ К НАГРУЗКАМ
         </div>
     </div>
@@ -343,30 +210,30 @@
             <div class="geo-shape shape-tri-wrapper" style="top: 50%; left: -60px; transform: translateY(-50%) rotate(-10deg);">
                 <svg viewBox="0 0 100 100"><polygon points="50,5 95,95 5,95" /></svg>
             </div>
-            <h2 class="section-title reveal">НАВЫКИ</h2>
+            <h2 class="section-title reveal">НАШ СТЕК И УСЛУГИ</h2>
             <div class="bento-grid">
                 <div class="brutal-card span-4 card-white reveal">
                     <span class="badge">01. ВИЗУАЛ</span>
                     <div>
                         <svg class="icon-svg" viewBox="0 0 24 24"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
-                        <h3>НЕ БЕСЯЧИЙ ДИЗАЙН</h3>
-                        <p style="margin-top: 15px; font-size: 16px;">Делаем так, чтобы клиенту было понятно куда жать. Удобно, красиво и с логикой.</p>
+                        <h3>ДИЗАЙН И UI/UX</h3>
+                        <p style="margin-top: 15px; font-size: 16px;">Проектируем интерфейсы, в которых пользователь не заблудится. Удобно, красиво и с логикой.</p>
                     </div>
                 </div>
                 <div class="brutal-card span-4 card-lime reveal">
                     <span class="badge" style="background:var(--paper)">02. ЯДРО</span>
                     <div>
                         <svg class="icon-svg" viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="2" ry="2"></rect><rect x="9" y="9" width="6" height="6"></rect><line x1="9" y1="1" x2="9" y2="4"></line><line x1="15" y1="1" x2="15" y2="4"></line><line x1="9" y1="20" x2="9" y2="23"></line><line x1="15" y1="20" x2="15" y2="23"></line><line x1="20" y1="9" x2="23" y2="9"></line><line x1="20" y1="14" x2="23" y2="14"></line><line x1="1" y1="9" x2="4" y2="9"></line><line x1="1" y1="14" x2="4" y2="14"></line></svg>
-                        <h3>МОЩНЫЙ КОД</h3>
-                        <p style="margin-top: 15px; font-size: 16px;">Внутри всё летает. Никаких лагов. Сложные системы или простой сайт — вывезем всё.</p>
+                        <h3>FRONTEND & BACKEND</h3>
+                        <p style="margin-top: 15px; font-size: 16px;">Пишем чистый код, который летает. От простого сайта до нагруженных систем — вывезем всё.</p>
                     </div>
                 </div>
                 <div class="brutal-card span-4 card-pink reveal">
                     <span class="badge" style="background:var(--paper)">03. СТАРТ</span>
                     <div>
                         <svg class="icon-svg" viewBox="0 0 24 24"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
-                        <h3>ЗАПУСК ПОД КЛЮЧ</h3>
-                        <p style="margin-top: 15px; font-size: 16px;">Сами всё настроим, сервер поднимем. Тебе останется только скинуть ссылку клиентам.</p>
+                        <h3>ЗАПУСК И SEO</h3>
+                        <p style="margin-top: 15px; font-size: 16px;">Сами поднимем сервер, настроим домен и проведем базовую SEO-оптимизацию для старта.</p>
                     </div>
                 </div>
             </div>
@@ -414,21 +281,21 @@
 
         <section class="section-gap" style="position: relative;">
              <div class="geo-shape shape-pill" style="top: 20px; right: 0; transform: rotate(5deg);"></div>
-            <h2 class="section-title reveal" style="transform: rotate(-2deg); background: var(--alert-orange);">ФОРМАТЫ</h2>
+            <h2 class="section-title reveal" style="transform: rotate(-2deg); background: var(--alert-orange);">ФОРМАТЫ РАБОТЫ</h2>
             <div class="bento-grid">
                 <div class="brutal-card span-6 reveal" style="min-height: 300px;">
                     <div>
-                        <h3>ЛЕНДИНГИ<br>ПРОМО</h3>
+                        <h3>ЛЕНДИНГИ<br>И ПРОМО-САЙТЫ</h3>
                         <div style="width: 50px; height: 5px; background: var(--ink); margin: 20px 0;"></div>
                     </div>
-                    <p>Чтобы быстро проверить идею или налить трафик. Делаем сочно, от 5 дней.</p>
+                    <p>Создание лендингов для быстрого теста идеи или налива трафика. Делаем сочно, от 5 дней.</p>
                 </div>
                 <div class="brutal-card span-6 reveal" style="min-height: 300px; transform: rotate(1deg);">
                     <div>
-                        <h3>СЛОЖНЫЕ<br>СИСТЕМЫ</h3>
+                        <h3>СЛОЖНЫЕ<br>ВЕБ-СЕРВИСЫ</h3>
                         <div style="width: 50px; height: 5px; background: var(--ink); margin: 20px 0;"></div>
                     </div>
-                    <p>Личные кабинеты, CRM, парсеры и data-майнинг. То, на чем ломаются новички.</p>
+                    <p>Разработка личных кабинетов, CRM, парсеров и систем с API. То, на чем ломаются новички.</p>
                 </div>
             </div>
         </section>
@@ -503,9 +370,9 @@
     </div>
 
     <footer>
-        <img src="fullLogo.png" alt="LOUD STUDIO" class="footer-logo">
+        <img src="fullLogo.png" alt="Логотип LOUD STUDIO" class="footer-logo">
         <div style="margin-top: 20px; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase;">
-            LOUD STUDIO © 2025
+            DIGITAL PRODUCTION © 2025
         </div>
         <div class="legal-links">
             <span class="legal-link" data-modal="policy">Политика конфиденциальности</span>
